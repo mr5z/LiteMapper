@@ -12,7 +12,7 @@ namespace LiteMapper
         private readonly IDictionary<Type, Type> typeMappings = new Dictionary<Type, Type>();
         private readonly Builder builder = new Builder();
 
-        public Builder Configure(Assembly assembly, string sourceNs, string destinationNs, string pattern = "Dto")
+        public Builder Configure(Assembly assembly, string sourceNs, string destinationNs, string suffixPattern = "Dto")
         {
             // Retrieve all classes in the source and destination namespaces
             var sourceTypes = GetTypesInNamespace(assembly, sourceNs);
@@ -21,7 +21,7 @@ namespace LiteMapper
             // Build type mappings based on naming conventions
             foreach (var sourceType in sourceTypes)
             {
-                var destinationType = destinationTypes.FirstOrDefault(dt => Regex.IsMatch(dt.Name, $"{sourceType.Name}{pattern}"));
+                var destinationType = destinationTypes.FirstOrDefault(dt => Regex.IsMatch(dt.Name, $"{sourceType.Name}{suffixPattern}"));
                 if (destinationType != null)
                 {
                     typeMappings[sourceType] = destinationType;

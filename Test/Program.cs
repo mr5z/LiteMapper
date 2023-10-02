@@ -10,7 +10,7 @@ using Test.Models.DTO;
 var mappingService = new MappingService();
 
 mappingService
-    .Configure(Assembly.GetExecutingAssembly(), "Test.Models.Domain", "Test.Models.DTO")
+    .Configure(Assembly.GetExecutingAssembly(), $"{nameof(Test)}.{nameof(Test.Models)}.{nameof(Test.Models.Domain)}", $"{nameof(Test)}.{nameof(Test.Models)}.{nameof(Test.Models.DTO)}")
     .On<User, UserDto>(user => user.LastName, a => a + "-lastname")
     .On<UserDto, User>(user => user.FirstName, new FirstNameMask());
 
